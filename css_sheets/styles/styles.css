@@ -5,6 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
+    text-align: center;
 }
 
 main {
@@ -12,14 +13,15 @@ main {
 }
 
 header, footer {
-    background-image: url('css_sheets/images/8610.jpg'); 
+    background-image: url("/css_sheets/images/8610.jpg"); 
     background-size: cover;
     background-position: center;
-    color: #fff;
-    text-align: center;
+    color: blue;
+    text-align: right;
     padding: 20px;
 }
 
 h1 {
     text-align: center;
+    color: blue;
 }
