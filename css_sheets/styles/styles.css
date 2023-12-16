@@ -12,7 +12,26 @@ main {
     flex: 1;
 }
 
-header, footer {
+header {
+    position: relative;
+    background-image: url("/css_sheets/images/8610.jpg"); 
+    background-size: cover;
+    background-position: center;
+    color: blue;
+    text-align: right;
+    padding: 20px;
+}
+
+#gear-icon {
+    position: absolute;
+    top: 65px;
+    left: 10px;
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+footer {
     background-image: url("/css_sheets/images/8610.jpg"); 
     background-size: cover;
     background-position: center;
