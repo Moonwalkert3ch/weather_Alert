@@ -4,18 +4,63 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+header {
+    position: relative;
+    background-image: url("/css_sheets/images/8610.jpg"); 
+    background-size: cover;
+    background-position: center;
+    color: blue;
+    text-align: right;
+    padding: 20px;
+}
+
+.gear-container {
+    position: absolute;
+    display: flex;
+    top: 65px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#gear-icon {
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.dropdown input[type="checkbox"] {
+    margin-right: 5px;
 }
 
 main {
     flex: 1;
 }
 
-footer {
-    background-color: #f2f2f2;
-    padding: 10px;
-    text-align: center;
-}
-
 h1 {
     text-align: center;
+    color: blue;
+}
+
+footer {
+    background-image: url("/css_sheets/images/8610.jpg"); 
+    background-size: cover;
+    background-position: center;
+    color: blue;
+    text-align: right;
+    padding: 20px;
 }
