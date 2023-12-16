@@ -12,7 +12,7 @@ main {
 }
 
 header, footer {
-    background-image: url('your-image-url.jpg'); 
+    background-image: url('css_sheets/images/8610.jpg'); 
     background-size: cover;
     background-position: center;
     color: #fff;
