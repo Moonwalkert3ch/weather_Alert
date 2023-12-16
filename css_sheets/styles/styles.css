@@ -8,10 +8,6 @@ body {
     text-align: center;
 }
 
-main {
-    flex: 1;
-}
-
 header {
     position: relative;
     background-image: url("/css_sheets/images/8610.jpg"); 
@@ -22,14 +18,43 @@ header {
     padding: 20px;
 }
 
-#gear-icon {
+.gear-container {
     position: absolute;
+    display: flex;
     top: 65px;
-    left: 10px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#gear-icon {
     width: 30px; /* Adjust the width as needed */
     height: auto; /* Maintain aspect ratio */
 }
 
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.dropdown input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+main {
+    flex: 1;
+}
+
+h1 {
+    text-align: center;
+    color: blue;
+}
 
 footer {
     background-image: url("/css_sheets/images/8610.jpg"); 
@@ -38,9 +63,4 @@ footer {
     color: blue;
     text-align: right;
     padding: 20px;
-}
-
-h1 {
-    text-align: center;
-    color: blue;
 }
