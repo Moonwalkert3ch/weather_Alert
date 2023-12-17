@@ -4,26 +4,35 @@ function searchByZip() {
     alert("Searching for ZIP code: " + zipCode);
 }
 
+.dropdown {
+    display: none;
+}
+
+.show-dropdown {
+    display: block;
+}
+
 function toggleDropdown() {
     const dropdown = document.getElementById("dropdown");
-    const computedStyle = window.getComputedStyle(dropdown);
-
-    if (computedStyle.display === "block") {
-        dropdown.style.display = "none";
-    } else {
-        dropdown.style.display = "block";
-    }
+    dropdown.classlist.toggle("show-description");
 }
    
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function (event) {
-    if (!event.target.matches('.gear-container')) {
-        const dropdown = document.getElementById("dropdown");
-        const computedStyle = window.getComputedStyle(dropdown);
+// window.onclick = function (event) {
+//     if (!event.target.matches('.gear-container')) {
+//         const dropdown = document.getElementById("dropdown");
+//         const computedStyle = window.getComputedStyle(dropdown);
+//
+//         if (computedStyle.display === "block") {
+//             dropdown.style.display = "none";
+//         }
+//     }
+// };
 
-        if (computedStyle.display === "block") {
-            dropdown.style.display = "none";
-        }
+document.addEventListener("click", function (event) {
+    const dropdown = document.getElementById("dropdown");
+    if (!event.target.closest('.gear-container') && !event.target.closest('.dropdown')) {
+        dropdown.classList.remove("show-dropdown");
     }
-};
+});
