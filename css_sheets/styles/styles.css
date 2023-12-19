@@ -12,16 +12,15 @@ header {
     position: relative;
     background-image: url("/css_sheets/images/8610.jpg"); 
     background-size: cover;
-    background-position: center;
-    color: blue;
-    text-align: right;
-    padding: 20px;
+    justify-content: center;
+    color: blueviolet;
+    padding: 1%;
 }
 
 .gear-container {
-    position: absolute;
+    position: fixed;
     display: flex;
-    top: 65px;
+    top: 135px;
     left: 20px;
     display: flex;
     align-items: center;
@@ -36,23 +35,43 @@ header {
 .dropdown {
     display: none;
     position: absolute;
+    list-style: none;
     top: 100%;
     left: 0;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 10px;
+    width: 150px;
+}
+.dropdown li {
+    border-bottom: 1px solid black; /* Add a bottom border to create lines between menu items */
+    padding: 10px 0; /* Adjust the spacing between menu items as needed */
+}
+
+ul.dropdown li:last-child {
+    border-bottom: none; /* Remove the bottom border from the last menu item */
 }
 
 .dropdown input[type="checkbox"] {
     margin-right: 5px;
 }
 
+ul.dropdown li:first-child {
+    border-top: 1px solid white;
+}
+
 main {
     flex: 1;
 }
 
-h1 {
+header h1, header p {
     text-align: center;
+    color: blue;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: inline;
+}
+
+h3 {
     color: blue;
 }
 
@@ -60,9 +79,14 @@ footer {
     background-image: url("/css_sheets/images/8610.jpg"); 
     background-size: cover;
     background-position: center;
-    color: black;
+    color: blue;
     text-align: right;
     padding: 20px;
+}
+
+footer p {
+    background-color: rgba(255, 255, 255, 0.7);
+    display: inline;
 }
 
 #map-container {

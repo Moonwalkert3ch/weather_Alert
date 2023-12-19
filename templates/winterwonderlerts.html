@@ -10,34 +10,34 @@
 <body>
 
     <header>
-
+        <br>
+        <h1><b>WINTER WONDERLERTS</b></h1>
+        <br><br>    
+        <p>This is a magical place where you can receive winter weather alerts!</p>
     </header>
 
     <main>
         <div class="gear-container" onclick="toggleDropdown()">
             <img src="/css_sheets/images/snowflakegear.png" alt="Gear Icon" id="gear-icon">
-            <div class="dropdown" id="dropdown">
-                <input type="checkbox" id="option1">
-                <label for="option1">Option 1</label>
-                <input type="checkbox" id="option2">
-                <label for="option2">Option 2</label>
-                <input type="checkbox" id="option3">
-                <label for="option3">Option 3</label>
-                <input type="checkbox" id="option4">
-                <label for="option4">Option 4</label>
-                <input type="checkbox" id="option5">
-                <label for="option5">Option 5</label>
-                <input type="checkbox" id="option6">
-                <label for="option6">Option 6</label>
-                <input type="checkbox" id="option7">
-                <label for="option7">Option 7</label>
-                <input type="checkbox" id="option8">
-                <label for="option8">Option 8</label>
-            </div>
-        </div>
-
-        <h1><b>Winter Wonderlerts!</b></h1>    
-        <p>This is a magical place where you can receive winter weather alerts.</p>
+            <div ul class="dropdown" id="dropdown">
+                <li><input type="checkbox" id="option1">
+                <label for="option1">Option 1</label></li>
+                <li><input type="checkbox" id="option2">
+                <label for="option2">Option 2</label></li>
+                <li><input type="checkbox" id="option3">
+                <label for="option3">Option 3</label></li>
+                <li><input type="checkbox" id="option4">
+                <label for="option4">Option 4</label></li>
+                <li><input type="checkbox" id="option5">
+                <label for="option5">Option 5</label></li>
+                <li><input type="checkbox" id="option6">
+                <label for="option6">Option 6</label></li>
+                <li><input type="checkbox" id="option7">
+                <label for="option7">Option 7</label></li>
+                <li><input type="checkbox" id="option8">
+                <label for="option8">Option 8</label></li>
+                </ul></div>
+        </div><br>
 
         <!-- ZIP Code Input Field -->
         <label for="zipcode">ZIP Code:</label>
@@ -46,10 +46,14 @@
         <!-- Search Button -->
         <button type="button" onclick="searchByZip()">Search</button>
 
-        <div id="map-container"></div>
-
-        <div id="alerts-container"></div>
     <!-- Add more content as needed -->
+    <h3>7-DAY WEATHER FORECAST</h3>
+    <div id="map-container"></div>
+    
+    <br>
+    <h3>ALERT NOTIFICATIONS</h3>
+        
+        <div id="alerts-container"></div>
 
     <!-- You can include scripts or links to external scripts here -->
     </main>
