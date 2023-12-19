@@ -39,16 +39,22 @@ header {
     top: 100%;
     left: 0;
     background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid black;
+    padding: 1px;
     width: 150px;
+    text-align: justify;
 }
+
+.dropdown #checkbox {
+    color: black;
+}
+
 .dropdown li {
     border-bottom: 1px solid black; /* Add a bottom border to create lines between menu items */
     padding: 10px 0; /* Adjust the spacing between menu items as needed */
 }
 
-ul.dropdown li:last-child {
+.dropdown li:last-child {
     border-bottom: none; /* Remove the bottom border from the last menu item */
 }
 
@@ -58,6 +64,11 @@ ul.dropdown li:last-child {
 
 ul.dropdown li:first-child {
     border-top: 1px solid white;
+}
+
+.dropdown li:hover {
+    background-color: #e0f5ff; /* Light blue background color */
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Light blue shadow */
 }
 
 main {
@@ -104,13 +115,61 @@ footer p {
     display: block; /* Remove extra space below the image */
 }
 
-#alert-container {
-    margin-top: 20px; /* Add some spacing between the map and alerts sections */
+#alerts-container {
+    margin-top: 20px;
+    text-align: center;
 }
 
-.alert {
-    margin-bottom: 10px; /* Add spacing between individual alerts */
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+.alerts-table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.alerts-table th {
+    color: blue;
+}
+
+.alerts-table th, .alerts-table td {
+    border: 1px solid #ccc;
     padding: 10px;
-    border: 1px solid #ff0000; /* Red border for alerts (customize as needed) */
-    background-color: #ffeeee; /* Light red background for alerts (customize as needed) */
+    text-align: left;
+}
+
+.alert-title {
+    font-weight: bold;
+}
+
+.weather-icon {
+    width: 30px;
+}
+
+.alert-description {
+    cursor: pointer;
+    position: relative;
+    text-align: justify;
+}
+
+.abbreviated-description {
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+.full-description {
+    display: none;
+}
+
+.alert-description:hover .full-description {
+    display: inline-block;
+}
+
+.alert-description:hover .abbreviated-description {
+    display: none;
 }

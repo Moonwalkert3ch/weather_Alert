@@ -62,87 +62,25 @@ function loadWeatherMap(zipCode, mapContainer) {
         });
 }
 
-function fetchWeatherAlerts(zipCode, alertsContainer) {
-    const alertsUrl = `https://api.weatherbit.io/v2.0/alerts?postal_code=${zipCode}&key=${apiKey}`;
+document.addEventListener('DOMContentLoaded', function () {
+    const alerts = document.querySelectorAll('.alert');
 
-    // Fetch data from the Weatherbit API
-    fetch(alertsUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (alerts && alerts.length > 0) {
-                // Display each alert
-                alerts.forEach((alert) => {
-                    const alertElement = document.createElement("div");
+    alerts.forEach(alert => {
+        const title = alert.querySelector('.alert-title');
+        const abbreviatedDescription = alert.querySelector('.abbreviated-description');
+        const fullDescription = alert.getAttribute('data-full-description');
+        const descriptionCell = alert.querySelector('.alert-description');
 
-                    alertElement.className = "alert";
-
-                    // Create an image element for the weather icon
-                    const iconElement = document.createElement("img");
-
-                    iconElement.src = `https://www.weatherbit.io/static/img/icons/${alert.icon}.png`;
-                    iconElement.alt = "Weather Icon";
-
-                    // Set border color based on the severity
-                    alertElement.style.borderColor = getBorderColor(alert.severity);
-
-                    // Add the icon and description to the alert element
-                    alertElement.appendChild(iconElement);
-                    alertElement.textContent = alert.description;
-                    alertsContainer.appendChild(alertElement);
-                });
-            } else {
-                // No alerts
-                alertsContainer.textContent = "No weather alerts for the specified area.";
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching weather alerts:", error);
-            alertsContainer.innerHTML = "Failed to load weather alerts.";
+        title.addEventListener('mouseover', function () {
+            // Display the full description on hover
+            descriptionCell.innerText = fullDescription;
+            abbreviatedDescription.style.display = 'none';
         });
-}
 
-// Function to display weather alerts
-function displayWeatherAlerts(alerts, alertsContainer) {
-    // Clear previous alerts
-    alertsContainer.innerHTML = "";
-
-    if (alerts && alerts.length > 0) {
-        // Display each alert
-        alerts.forEach((alert) => {
-            const alertElement = document.createElement("div");
-
-            alertElement.className = "alert";
-
-            // Create an image element for the weather icon
-            const iconElement = document.createElement("img");
-
-            iconElement.src = `https://www.weatherbit.io/static/img/icons/${alert.icon}.png`;
-            iconElement.alt = "Weather Icon";
-
-            // Set border color based on the severity
-            alertElement.style.borderColor = getBorderColor(alert.severity);
-
-            // Add the icon and description to the alert element
-            alertElement.appendChild(iconElement);
-            alertElement.textContent = alert.description;
-            alertsContainer.appendChild(alertElement);
+        title.addEventListener('mouseout', function () {
+            // Hide the full description when the mouse leaves the title
+            descriptionCell.innerText = ''; // Clear the content
+            abbreviatedDescription.style.display = 'inline-block';
         });
-    } else {
-        // No alerts
-        alertsContainer.textContent = "No weather alerts for the specified area.";
-    }
-}
-
-// Function to get border color based on severity
-function getBorderColor(severity) {
-    switch (severity) {
-        case "Warning":
-            return "#ff0000"; // Red for extreme severity
-        case "Watch":
-            return "#ffa500"; // Orange for moderate severity
-        case "Advisory":
-            return "#ffff00"; // Yellow for minor severity
-        default:
-            return "#808080"; // Gray for unknown severity
-    }
-}
+    });
+});

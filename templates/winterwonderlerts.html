@@ -21,21 +21,21 @@
             <img src="/css_sheets/images/snowflakegear.png" alt="Gear Icon" id="gear-icon">
             <div ul class="dropdown" id="dropdown">
                 <li><input type="checkbox" id="option1">
-                <label for="option1">Option 1</label></li>
+                <label for="option1">Fog</label></li>
                 <li><input type="checkbox" id="option2">
-                <label for="option2">Option 2</label></li>
+                <label for="option2">Rain</label></li>
                 <li><input type="checkbox" id="option3">
-                <label for="option3">Option 3</label></li>
+                <label for="option3">Snow</label></li>
                 <li><input type="checkbox" id="option4">
-                <label for="option4">Option 4</label></li>
+                <label for="option4">Sleet</label></li>
                 <li><input type="checkbox" id="option5">
-                <label for="option5">Option 5</label></li>
+                <label for="option5">Ice</label></li>
                 <li><input type="checkbox" id="option6">
-                <label for="option6">Option 6</label></li>
+                <label for="option6">Frost</label></li>
                 <li><input type="checkbox" id="option7">
-                <label for="option7">Option 7</label></li>
+                <label for="option7">Storms</label></li>
                 <li><input type="checkbox" id="option8">
-                <label for="option8">Option 8</label></li>
+                <label for="option8">Hail</label></li>
                 </ul></div>
         </div><br>
 
@@ -53,7 +53,31 @@
     <br>
     <h3>ALERT NOTIFICATIONS</h3>
         
-        <div id="alerts-container"></div>
+    <div id="alerts-container">
+        <div class="table-container">
+            <table class="alerts-table">
+                <thead>
+                    <tr>
+                        <th>ICON</th>
+                        <th>ALERT</th>
+                        <th>ALERT DESCRIPTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add alert rows here -->
+                    <tr>
+                        <td class="weather-icon">[Icon]</td>
+                        <td class="alert-title">Snowstorm Warning</td>
+                        <td class="alert-description">
+                            <span class="abbreviated-description">Snowfall Alert</span>
+                            <span class="full-description">Heavy snowfall expected in your area. Please stay safe.</span>
+                        </td>
+                    </tr>
+                    <!-- Add more alert rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!-- You can include scripts or links to external scripts here -->
     </main>
