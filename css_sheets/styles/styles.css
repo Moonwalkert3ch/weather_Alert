@@ -64,3 +64,29 @@ footer {
     text-align: right;
     padding: 20px;
 }
+
+#map-container {
+    width: 100%; /* Adjust the width as needed */
+    height: auto;
+    max-width: 800px; /* Set a maximum width if desired */
+    margin: 20px auto; /* Center the map container and add some spacing */
+    border: 1px solid #ccc; /* Add a border for better visual separation */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+}
+
+#map-container img {
+    width: 100%; /* Make the map image fill the container */
+    height: auto; /* Maintain the aspect ratio */
+    display: block; /* Remove extra space below the image */
+}
+
+#alert-container {
+    margin-top: 20px; /* Add some spacing between the map and alerts sections */
+}
+
+.alert {
+    margin-bottom: 10px; /* Add spacing between individual alerts */
+    padding: 10px;
+    border: 1px solid #ff0000; /* Red border for alerts (customize as needed) */
+    background-color: #ffeeee; /* Light red background for alerts (customize as needed) */
+}
