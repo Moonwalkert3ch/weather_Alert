@@ -21,21 +21,21 @@
             <img src="/css_sheets/images/snowflakegear.png" alt="Gear Icon" id="gear-icon">
             <div ul class="dropdown" id="dropdown">
                 <li><input type="checkbox" id="option1">
-                <label for="option1">Fog</label></li>
+                <label for="option1">SUNDAY</label></li>
                 <li><input type="checkbox" id="option2">
-                <label for="option2">Rain</label></li>
+                <label for="option2">MONDAY</label></li>
                 <li><input type="checkbox" id="option3">
-                <label for="option3">Snow</label></li>
+                <label for="option3">TUESDAY</label></li>
                 <li><input type="checkbox" id="option4">
-                <label for="option4">Sleet</label></li>
+                <label for="option4">WEDNESDAY</label></li>
                 <li><input type="checkbox" id="option5">
-                <label for="option5">Ice</label></li>
+                <label for="option5">THURSDAY</label></li>
                 <li><input type="checkbox" id="option6">
-                <label for="option6">Frost</label></li>
+                <label for="option6">FRIDAY</label></li>
                 <li><input type="checkbox" id="option7">
-                <label for="option7">Storms</label></li>
+                <label for="option7">SATURDAY</label></li>
                 <li><input type="checkbox" id="option8">
-                <label for="option8">Hail</label></li>
+                <label for="option8">ALL DAYS</label></li>
                 </ul></div>
         </div><br>
 
@@ -47,37 +47,12 @@
         <button type="button" onclick="searchByZip()">Search</button>
 
     <!-- Add more content as needed -->
-    <h3>7-DAY WEATHER FORECAST</h3>
-    <div id="map-container"></div>
+    <h3>CURRENT WEATHER FORECAST</h3>
+    <div id="weather-info"></div>
     
     <br>
-    <h3>ALERT NOTIFICATIONS</h3>
-        
-    <div id="alerts-container">
-        <div class="table-container">
-            <table class="alerts-table">
-                <thead>
-                    <tr>
-                        <th>ICON</th>
-                        <th>ALERTS</th>
-                        <th>ALERT DESCRIPTION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Add alert rows here -->
-                    <tr>
-                        <td class="weather-icon">[Icon]</td>
-                        <td class="alert-title">Snowstorm Warning</td>
-                        <td class="alert-description">
-                            <span class="abbreviated-description">Snowfall Alert ...</span>
-                            <span class="full-description">Heavy snowfall expected in your area. Please stay safe.</span>
-                        </td>
-                    </tr>
-                    <!-- Add more alert rows as needed -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+        <div id="weather-info"></div>
+        <div id="forecast"></div>
 
     <!-- You can include scripts or links to external scripts here -->
     </main>
