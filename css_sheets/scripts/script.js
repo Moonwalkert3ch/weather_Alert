@@ -138,3 +138,24 @@ function getBorderColor(severity) {
             return "#808080"; // Gray for unknown severity
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const alerts = document.querySelectorAll('.alert');
+
+    alerts.forEach(alert => {
+        const title = alert.querySelector('.alert-title');
+        const abbreviatedDescription = alert.querySelector('.abbreviated-description');
+        const fullDescription = alert.getAttribute('data-full-description');
+        const descriptionCell = alert.querySelector('.alert-description');
+
+        title.addEventListener('mouseover', function () {
+            // Display the full description on hover
+            descriptionCell.innerText = fullDescription;
+            abbreviatedDescription.style.display = 'none';
+        title.addEventListener('mouseout', function () {
+            // Hide the full description when the mouse leaves the title
+            descriptionCell.innerText = ''; // Clear the content
+            abbreviatedDescription.style.display = 'inline-block';
+        });
+    });
+});

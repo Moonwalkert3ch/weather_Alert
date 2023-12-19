@@ -12,16 +12,15 @@ header {
     position: relative;
     background-image: url("/css_sheets/images/8610.jpg"); 
     background-size: cover;
-    background-position: center;
-    color: blue;
-    text-align: right;
-    padding: 20px;
+    justify-content: center;
+    color: blueviolet;
+    padding: 1%;
 }
 
 .gear-container {
-    position: absolute;
+    position: fixed;
     display: flex;
-    top: 65px;
+    top: 135px;
     left: 20px;
     display: flex;
     align-items: center;
@@ -36,23 +35,54 @@ header {
 .dropdown {
     display: none;
     position: absolute;
+    list-style: none;
     top: 100%;
     left: 0;
     background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid black;
+    padding: 1px;
+    width: 150px;
+    text-align: justify;
+}
+
+.dropdown #checkbox {
+    color: black;
+}
+
+.dropdown li {
+    border-bottom: 1px solid black; /* Add a bottom border to create lines between menu items */
+    padding: 10px 0; /* Adjust the spacing between menu items as needed */
+}
+
+.dropdown li:last-child {
+    border-bottom: none; /* Remove the bottom border from the last menu item */
 }
 
 .dropdown input[type="checkbox"] {
     margin-right: 5px;
 }
 
+ul.dropdown li:first-child {
+    border-top: 1px solid white;
+}
+
+.dropdown li:hover {
+    background-color: #e0f5ff; /* Light blue background color */
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Light blue shadow */
+}
+
 main {
     flex: 1;
 }
 
-h1 {
+header h1, header p {
     text-align: center;
+    color: blue;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: inline;
+}
+
+h3 {
     color: blue;
 }
 
@@ -60,9 +90,14 @@ footer {
     background-image: url("/css_sheets/images/8610.jpg"); 
     background-size: cover;
     background-position: center;
-    color: black;
+    color: blue;
     text-align: right;
     padding: 20px;
+}
+
+footer p {
+    background-color: rgba(255, 255, 255, 0.7);
+    display: inline;
 }
 
 #forecast-container {
@@ -81,11 +116,58 @@ footer {
     margin: 20px auto; /* Center the map container and add some spacing */
     border: 1px solid #ccc; /* Add a border for better visual separation */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+    text-align: center;
+}
+.table-container {
+    display: flex;
+    justify-content: center;
 }
 
-.alert {
-    margin-bottom: 10px; /* Add spacing between individual alerts */
+.alerts-table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.alerts-table th {
+    color: blue;
+}
+
+.alerts-table th, .alerts-table td {
+    border: 1px solid #ccc;
     padding: 10px;
-    border: 1px solid #ff0000; /* Red border for alerts (customize as needed) */
-    background-color: #ffeeee; /* Light red background for alerts (customize as needed) */
+    text-align: left;
+}
+
+.alert-title {
+    font-weight: bold;
+}
+
+.weather-icon {
+    width: 30px;
+}
+
+.alert-description {
+    cursor: pointer;
+    position: relative;
+    text-align: justify;
+}
+
+.abbreviated-description {
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+.full-description {
+    display: none;
+}
+
+.alert-description:hover .full-description {
+    display: inline-block;
+}
+
+.alert-description:hover .abbreviated-description {
+    display: none;
 }
