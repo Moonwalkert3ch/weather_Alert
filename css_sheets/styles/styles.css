@@ -48,7 +48,7 @@ header {
     padding: 10px 0; /* Adjust the spacing between menu items as needed */
 }
 
-ul.dropdown li:last-child {
+.dropdown li:last-child {
     border-bottom: none; /* Remove the bottom border from the last menu item */
 }
 
