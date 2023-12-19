@@ -1,11 +1,25 @@
-const apiKey = "2ca0d649560a42dfa9b58ae3fed9d1eb";
-const mapContainer = document.getElementById("map-container");
+const apiKey = "6cd6d54dc57642e697d1850728f6bfdc";
+const forecastContainer = document.getElementById("forecast-container");
 const alertsContainer = document.getElementById("alerts-container");
 
 // Call the function to initialize the map when the page loads
 document.addEventListener('DOMContentLoaded', function () {
-    loadWeatherMap(20001, mapContainer);
-    fetchWeatherAlerts(20001, alertsContainer)
+    alert("Please say \"OK\", first.");
+    const defaultZip = 20001;
+
+    // Check if zipCode is valid before processing
+    if (!defaultZip || !/^\d{5}$/.test(defaultZip)) {
+        alert("Please enter a valid ZIP code.");
+        return;
+    }
+
+    // Clear existing map and alerts content
+    document.getElementById("forecast-container").innerHTML = "";
+    document.getElementById("alerts-container").innerHTML = "";
+
+    // Fetch weather data
+    loadForecast(defaultZip);
+    loadWeatherAlerts(defaultZip);
 });
 
 function toggleDropdown() {
@@ -29,65 +43,75 @@ function searchByZip() {
     }
 
     // Clear existing map and alerts content
-    document.getElementById("map-container").innerHTML = "";
+    document.getElementById("forecast-container").innerHTML = "";
     document.getElementById("alerts-container").innerHTML = "";
 
     // Fetch weather data
-    loadWeatherMap(zipCode, mapContainer);
-    fetchWeatherAlerts(zipCode, alertsContainer);
+    loadForecast(zipCode);
+    loadWeatherAlerts(zipCode);
 }
 
 // Function to load the Weather map
-function loadWeatherMap(zipCode, mapContainer) {
-    const mapUrl = `https://api.weatherbit.io/v2.0/current?postal_code=${zipCode}&key=${apiKey}`;
+function loadForecast(zipCode) {
+    const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?postal_code=${zipCode}&key=${apiKey}`;
 
     // Fetch data from the Weatherbit API
-    fetch(mapUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Extract latitude and longitude from the response data
-            const latitude = data.data[0].lat;
-            const longitude = data.data[0].lon;
-            const mapTileUrl = `https://api.weatherbit.io/v2.0/singleband/fullsat/latest/5/${latitude}/${longitude}.png?&key=${apiKey}`;
-
-            // Create an image element for the map
-            const mapImage = document.createElement("img");
-            mapImage.src = mapTileUrl;
-            mapImage.alt = "Weather Map";
-            mapContainer.appendChild(mapImage);
+    fetch(forecastUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return  response.json();
+        })
+        .then(forecasts => {
+            if (forecasts && forecasts.length > 0) {
+                // Display each forecast
+                forecasts.forEach((forecast) => {
+                    const forecastElement = document.createElement("div");
+                    forecastElement.className = "forecast";
+        
+                    // Create an image element for the weather icon
+                    const iconElement = document.createElement("img");
+                    iconElement.src = `https://cdn.weatherbit.io/static/img/icons/${forecast.weather.icon}.png`;
+                    iconElement.alt = `${forecast.weather.description}`;
+        
+                    // Add the icon and forecast information to the forecast element
+                    forecastElement.appendChild(iconElement);
+                    forecastElement.textContent = `${forecast.valid_date}: ${forecast.weather.description}, High: ${forecast.high_temp}°C, Low: ${forecast.low_temp}°C`;
+                    forecastContainer.appendChild(forecastElement);
+                });
+            } else {
+                // No forecast
+                forecastContainer.textContent = "No weather forecast available.";
+            }
         })
         .catch(error => {
-            console.error("Error fetching weather map data:", error);
-            mapContainer.innerHTML = "Failed to load weather map.";
+            console.error("Error fetching weather forecast:", error);
+            forecastContainer.innerHTML = "Failed to load weather forecast.";
         });
 }
 
-function fetchWeatherAlerts(zipCode, alertsContainer) {
+function loadWeatherAlerts(zipCode) {
     const alertsUrl = `https://api.weatherbit.io/v2.0/alerts?postal_code=${zipCode}&key=${apiKey}`;
 
     // Fetch data from the Weatherbit API
     fetch(alertsUrl)
-        .then(response => response.json())
-        .then(data => {
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(alerts => {
             if (alerts && alerts.length > 0) {
                 // Display each alert
                 alerts.forEach((alert) => {
                     const alertElement = document.createElement("div");
 
                     alertElement.className = "alert";
-
-                    // Create an image element for the weather icon
-                    const iconElement = document.createElement("img");
-
-                    iconElement.src = `https://www.weatherbit.io/static/img/icons/${alert.icon}.png`;
-                    iconElement.alt = "Weather Icon";
-
-                    // Set border color based on the severity
-                    alertElement.style.borderColor = getBorderColor(alert.severity);
-
-                    // Add the icon and description to the alert element
-                    alertElement.appendChild(iconElement);
-                    alertElement.textContent = alert.description;
+                    alertElement.style.borderColor = getBorderColor(alert.severity); // Set border color based on the severity
+                    alertElement.textContent = alert;
+                    alertElement.textContent = alert.title; // Add the description to the alert element
                     alertsContainer.appendChild(alertElement);
                 });
             } else {
@@ -99,38 +123,6 @@ function fetchWeatherAlerts(zipCode, alertsContainer) {
             console.error("Error fetching weather alerts:", error);
             alertsContainer.innerHTML = "Failed to load weather alerts.";
         });
-}
-
-// Function to display weather alerts
-function displayWeatherAlerts(alerts, alertsContainer) {
-    // Clear previous alerts
-    alertsContainer.innerHTML = "";
-
-    if (alerts && alerts.length > 0) {
-        // Display each alert
-        alerts.forEach((alert) => {
-            const alertElement = document.createElement("div");
-
-            alertElement.className = "alert";
-
-            // Create an image element for the weather icon
-            const iconElement = document.createElement("img");
-
-            iconElement.src = `https://www.weatherbit.io/static/img/icons/${alert.icon}.png`;
-            iconElement.alt = "Weather Icon";
-
-            // Set border color based on the severity
-            alertElement.style.borderColor = getBorderColor(alert.severity);
-
-            // Add the icon and description to the alert element
-            alertElement.appendChild(iconElement);
-            alertElement.textContent = alert.description;
-            alertsContainer.appendChild(alertElement);
-        });
-    } else {
-        // No alerts
-        alertsContainer.textContent = "No weather alerts for the specified area.";
-    }
 }
 
 // Function to get border color based on severity
