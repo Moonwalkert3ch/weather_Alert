@@ -42,6 +42,7 @@ header {
     border: 1px solid #ccc;
     padding: 10px;
     width: 150px;
+    text-align: justify;
 }
 .dropdown li {
     border-bottom: 1px solid black; /* Add a bottom border to create lines between menu items */
