@@ -1,13 +1,3 @@
-const apiKey = "2ca0d649560a42dfa9b58ae3fed9d1eb";
-const mapContainer = document.getElementById("map-container");
-const alertsContainer = document.getElementById("alerts-container");
-
-// Call the function to initialize the map when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    loadWeatherMap(20001, mapContainer);
-    fetchWeatherAlerts(20001, alertsContainer)
-});
-
 function toggleDropdown() {
     const dropdown = document.getElementById("dropdown");
     const computedStyle = window.getComputedStyle(dropdown);
@@ -21,6 +11,9 @@ function toggleDropdown() {
 
 function searchByZip() {
     const zipCode = document.getElementById("zipcode").value;
+    const apiKey = '6f3eb8eb9a573b50f188798f9ab3ce7f';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}&units=metric`;
+
 
     // Check if zipCode is valid before processing
     if (!zipCode || !/^\d{5}$/.test(zipCode)) {
@@ -28,38 +21,103 @@ function searchByZip() {
         return;
     }
 
-    // Clear existing map and alerts content
-    document.getElementById("map-container").innerHTML = "";
-    document.getElementById("alerts-container").innerHTML = "";
-
-    // Fetch weather data
-    loadWeatherMap(zipCode, mapContainer);
-    fetchWeatherAlerts(zipCode, alertsContainer);
-}
-
-// Function to load the Weather map
-function loadWeatherMap(zipCode, mapContainer) {
-    const mapUrl = `https://api.weatherbit.io/v2.0/current?postal_code=${zipCode}&key=${apiKey}`;
-
-    // Fetch data from the Weatherbit API
-    fetch(mapUrl)
-        .then(response => response.json())
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            // Extract latitude and longitude from the response data
-            const latitude = data.data[0].lat;
-            const longitude = data.data[0].lon;
-            const mapTileUrl = `https://api.weatherbit.io/v2.0/singleband/fullsat/latest/5/${latitude}/${longitude}.png?&key=${apiKey}`;
-
-            // Create an image element for the map
-            const mapImage = document.createElement("img");
-            mapImage.src = mapTileUrl;
-            mapImage.alt = "Weather Map";
-            mapContainer.appendChild(mapImage);
+            updateWeather(data);
         })
         .catch(error => {
-            console.error("Error fetching weather map data:", error);
-            mapContainer.innerHTML = "Failed to load weather map.";
+            console.error('Error fetching weather data:', error);
         });
+}
+
+function updateWeather(weatherData) {
+    const temperatureCelsius = weatherData.main.temp;
+    const temperatureFahrenheit = (temperatureCelsius * 9/5) + 32;
+    const description = weatherData.weather[0].description;
+
+    // Example: Display the temperature and description in the console
+    console.log(`Current Temperature: ${temperatureFahrenheit.toFixed(2)}°F`);
+    console.log(`Description: ${description}`);
+
+    // Update the DOM elements with the weather information as needed
+    // For example, you can update a div with id="weather-info"
+    const weatherInfoElement = document.getElementById("weather-info");
+    weatherInfoElement.innerHTML = `Current Temperature: ${temperatureFahrenheit.toFixed(2)}°F, Weather Description: ${description}`;
+
+    // Display the 7-day weather forecast
+    displayWeatherForecast(weatherData);
+}
+
+function displayWeatherForecast(weatherData) {
+    // Check if the forecast element exists
+    const forecastElement = document.getElementById("forecast");
+    if (!forecastElement) {
+        console.error("Forecast element not found");
+        return;
+    }
+
+    // Check if weather data contains coordinates
+    if (!weatherData.coord || !weatherData.coord.lat || !weatherData.coord.lon) {
+        console.error("Invalid weather data for forecast");
+        return;
+    }
+
+    // Replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key
+    const apiKey = '6f3eb8eb9a573b50f188798f9ab3ce7f';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&appid=${apiKey}&units=metric`;
+
+    // Make a GET request to the OpenWeatherMap API for 7-day forecast
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update the DOM with the forecast information
+            displayForecastData(data);
+        })
+        .catch(error => {
+            console.error('Error fetching forecast data:', error);
+        });
+}
+
+function displayForecastData(forecastData) {
+    // Example: Update the DOM with forecast information
+    const forecastElement = document.getElementById("forecast");
+    forecastElement.innerHTML = '<h3>7-DAY WEATHER FORECAST</h3>';
+
+    // Create a container div to hold forecast items
+    const forecastContainer = document.createElement("div");
+
+    // Loop through forecast data and create list items with lines
+    forecastData.list.forEach(item => {
+        const timestamp = item.dt * 1000; // Convert seconds to milliseconds
+        const date = new Date(timestamp);
+        const temperatureCelsius = item.main.temp;
+        const temperatureFahrenheit = (temperatureCelsius * 9/5) + 32;
+
+        // Create a list item for each forecast entry
+        const listItem = document.createElement("div");
+        listItem.innerHTML = `<p>${date.toDateString()} - ${temperatureCelsius}°C / ${temperatureFahrenheit.toFixed(2)}°F</p>`;
+
+        // Append a horizontal line between forecast entries
+        const line = document.createElement("hr");
+        listItem.appendChild(line);
+
+        // Append the list item to the forecast container
+        forecastContainer.appendChild(listItem);
+    });
+
+    // Append the forecast container to the forecast element
+    forecastElement.appendChild(forecastContainer);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
