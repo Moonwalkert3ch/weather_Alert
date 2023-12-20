@@ -21,6 +21,9 @@ function searchByZip() {
         return;
     }
 
+    document.getElementById("weather-info").innerHTML = "";
+    document.getElementById("forecast").innerHTML = "";
+
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -40,13 +43,6 @@ function updateWeather(weatherData) {
     const temperatureCelsius = weatherData.main.temp;
     const temperatureFahrenheit = (temperatureCelsius * 9/5) + 32;
     const description = weatherData.weather[0].description;
-
-    // Example: Display the temperature and description in the console
-    console.log(`Current Temperature: ${temperatureFahrenheit.toFixed(2)}°F`);
-    console.log(`Description: ${description}`);
-
-    // Update the DOM elements with the weather information as needed
-    // For example, you can update a div with id="weather-info"
     const weatherInfoElement = document.getElementById("weather-info");
     weatherInfoElement.innerHTML = `Current Temperature: ${temperatureFahrenheit.toFixed(2)}°F, Weather Description: ${description}`;
 
@@ -68,7 +64,6 @@ function displayWeatherForecast(weatherData) {
         return;
     }
 
-    // Replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key
     const apiKey = '6f3eb8eb9a573b50f188798f9ab3ce7f';
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&appid=${apiKey}&units=metric`;
 
@@ -92,7 +87,6 @@ function displayWeatherForecast(weatherData) {
 function displayForecastData(forecastData) {
     // Example: Update the DOM with forecast information
     const forecastElement = document.getElementById("forecast");
-    forecastElement.innerHTML = '<h3>7-DAY WEATHER FORECAST</h3>';
 
     // Create a container div to hold forecast items
     const forecastContainer = document.createElement("div");

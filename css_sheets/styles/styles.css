@@ -18,9 +18,9 @@ header {
 }
 
 .gear-container {
-    position: fixed;
+    position: relative;
     display: flex;
-    top: 135px;
+    top: 20px;
     left: 20px;
     display: flex;
     align-items: center;
