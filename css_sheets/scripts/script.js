@@ -4,18 +4,26 @@ const alertsContainer = document.getElementById("alerts-container");
 
 // Call the function to initialize the map when the page loads
 document.addEventListener('DOMContentLoaded', function () {
-    alert("Please say \"OK\", first.");
     const defaultZip = 20001;
+    const alerts = document.querySelectorAll('.alert');
 
-    // Check if zipCode is valid before processing
-    if (!defaultZip || !/^\d{5}$/.test(defaultZip)) {
-        alert("Please enter a valid ZIP code.");
-        return;
-    }
+    alerts.forEach(alert => {
+        const title = alert.querySelector('.alert-title');
+        const abbreviatedDescription = alert.querySelector('.abbreviated-description');
+        const fullDescription = alert.getAttribute('data-full-description');
+        const descriptionCell = alert.querySelector('.alert-description');
 
-    // Clear existing map and alerts content
-    document.getElementById("forecast-container").innerHTML = "";
-    document.getElementById("alerts-container").innerHTML = "";
+        title.addEventListener('mouseover', function () {
+            // Display the full description on hover
+            descriptionCell.innerText = fullDescription;
+            abbreviatedDescription.style.display = 'none';
+        });
+        title.addEventListener('mouseout', function () {
+            // Hide the full description when the mouse leaves the title
+            descriptionCell.innerText = ''; // Clear the content
+            abbreviatedDescription.style.display = 'inline-block';
+        });
+    });
 
     // Fetch weather data
     loadForecast(defaultZip);
@@ -44,7 +52,8 @@ function searchByZip() {
 
     // Clear existing map and alerts content
     document.getElementById("forecast-container").innerHTML = "";
-    document.getElementById("alerts-container").innerHTML = "";
+    const tableBody = alertsContainer.querySelector("tbody");
+    tableBody.innerHTML = "";
 
     // Fetch weather data
     loadForecast(zipCode);
@@ -61,12 +70,14 @@ function loadForecast(zipCode) {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-            return  response.json();
+            const responsibilities = response.json()
+            console.log(responsibilities);
+            return  responsibilities;
         })
-        .then(forecasts => {
-            if (forecasts && forecasts.length > 0) {
+        .then(data => {
+            if (data && data.length > 0) {
                 // Display each forecast
-                forecasts.forEach((forecast) => {
+                data.forEach((forecast) => {
                     const forecastElement = document.createElement("div");
                     forecastElement.className = "forecast";
         
@@ -100,23 +111,49 @@ function loadWeatherAlerts(zipCode) {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-            return response.json();
+            const responsibilities = response.json()
+            console.log(responsibilities);
+            return  responsibilities;
         })
-        .then(alerts => {
-            if (alerts && alerts.length > 0) {
+        .then(data => {
+            if (data && data.length > 0) {
                 // Display each alert
-                alerts.forEach((alert) => {
-                    const alertElement = document.createElement("div");
+                data.forEach((alert) => {
+                    const tableRow = document.createElement("tr");
 
-                    alertElement.className = "alert";
-                    alertElement.style.borderColor = getBorderColor(alert.severity); // Set border color based on the severity
-                    alertElement.textContent = alert;
-                    alertElement.textContent = alert.title; // Add the description to the alert element
-                    alertsContainer.appendChild(alertElement);
+                    // Create an image cell for the weather icon
+                    const iconCell = document.createElement("td");
+                    const iconElement = document.createElement("img");
+                    iconElement.src = `https://cdn.weatherbit.io/static/img/icons/${alert.icon}.png`;
+                    iconElement.alt = "Weather Icon";
+                    iconCell.appendChild(iconElement);
+
+                    // Create a description cell for the alert description
+                    const descriptionCell = document.createElement("td");
+                    descriptionCell.className = "alert-description";
+                    const alertTitle = document.createElement("span");
+                    alertTitle.classname = "abbreviated-description";
+                    alertTitle.textContent = alert.title;
+                    const alertDescription = document.createElement("span");
+                    alertDescription.classname = "full-description";
+                    alertDescription.textContent = alert.description;
+                    descriptionCell.appendChild(alertTitle);
+                    descriptionCell.appendChild(alertDescription);
+
+                    // Add cells to the table row
+                    tableRow.appendChild(iconCell);
+                    tableRow.appendChild(descriptionCell);
+
+                    // Add the table row to the alerts container
+                    alertsContainer.querySelector("tbody").appendChild(tableRow);
                 });
             } else {
                 // No alerts
-                alertsContainer.textContent = "No weather alerts for the specified area.";
+                const tableRow = document.createElement("tr");
+                const noAlertsCell = document.createElement("td");
+                noAlertsCell.textContent = "No weather alerts for the specified area.";
+                tableRow.appendChild(noAlertsCell);
+                alertsContainer.querySelector("tbody").appendChild(tableRow);
             }
         })
         .catch(error => {
@@ -124,38 +161,3 @@ function loadWeatherAlerts(zipCode) {
             alertsContainer.innerHTML = "Failed to load weather alerts.";
         });
 }
-
-// Function to get border color based on severity
-function getBorderColor(severity) {
-    switch (severity) {
-        case "Warning":
-            return "#ff0000"; // Red for extreme severity
-        case "Watch":
-            return "#ffa500"; // Orange for moderate severity
-        case "Advisory":
-            return "#ffff00"; // Yellow for minor severity
-        default:
-            return "#808080"; // Gray for unknown severity
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const alerts = document.querySelectorAll('.alert');
-
-    alerts.forEach(alert => {
-        const title = alert.querySelector('.alert-title');
-        const abbreviatedDescription = alert.querySelector('.abbreviated-description');
-        const fullDescription = alert.getAttribute('data-full-description');
-        const descriptionCell = alert.querySelector('.alert-description');
-
-        title.addEventListener('mouseover', function () {
-            // Display the full description on hover
-            descriptionCell.innerText = fullDescription;
-            abbreviatedDescription.style.display = 'none';
-        title.addEventListener('mouseout', function () {
-            // Hide the full description when the mouse leaves the title
-            descriptionCell.innerText = ''; // Clear the content
-            abbreviatedDescription.style.display = 'inline-block';
-        });
-    });
-});

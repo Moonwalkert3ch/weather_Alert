@@ -75,7 +75,14 @@ main {
     flex: 1;
 }
 
-header h1, header p {
+header p {
+    text-align: center;
+    background-color: rgba(0, 0, 255, 0.7);
+    color: white;
+    display: inline;
+}
+
+header h1 {
     text-align: center;
     color: blue;
     background-color: rgba(255, 255, 255, 0.7);
@@ -117,8 +124,6 @@ footer p {
     border: 1px solid #ccc; /* Add a border for better visual separation */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
     text-align: center;
-}
-.table-container {
     display: flex;
     justify-content: center;
 }
@@ -137,10 +142,6 @@ footer p {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
-}
-
-.alert-title {
-    font-weight: bold;
 }
 
 .weather-icon {

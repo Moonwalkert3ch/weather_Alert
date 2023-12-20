@@ -18,7 +18,7 @@
 
     <main>
         <div class="gear-container" onclick="toggleDropdown()">
-            <img src="/css_sheets/images/snowflakegear.png" alt="Gear Icon" id="gear-icon">
+            <img src="/css_sheets/images/snowflakegear.png" alt="Settings" id="gear-icon">
             <div ul class="dropdown" id="dropdown">
                 <li><input type="checkbox" id="option1">
                 <label for="option1">Fog</label></li>
@@ -45,41 +45,18 @@
 
         <!-- Search Button -->
         <button type="button" onclick="searchByZip()">Search</button>
+        <h3>7-DAY WEATHER FORECAST</h3>
+        <div id="forecast-container"></div>
 
-    <!-- Add more content as needed -->
-    <h3>7-DAY WEATHER FORECAST</h3>
-    <div id="map-container"></div>
-    
-    <br>
-    <h3>ALERT NOTIFICATIONS</h3>
-        
-    <div id="alerts-container">
-        <div class="table-container">
+        <br>
+        <h3>ALERT NOTIFICATIONS</h3>
+
+        <div id="alerts-container">
             <table class="alerts-table">
-                <thead>
-                    <tr>
-                        <th>ICON</th>
-                        <th>ALERTS</th>
-                        <th>ALERT DESCRIPTION</th>
-                    </tr>
-                </thead>
                 <tbody>
-                    <!-- Add alert rows here -->
-                    <tr>
-                        <td class="weather-icon">[Icon]</td>
-                        <td class="alert-title">Snowstorm Warning</td>
-                        <td class="alert-description">
-                            <span class="abbreviated-description">Snowfall Alert ...</span>
-                            <span class="full-description">Heavy snowfall expected in your area. Please stay safe.</span>
-                        </td>
-                    </tr>
-                    <!-- Add more alert rows as needed -->
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <!-- You can include scripts or links to external scripts here -->
     </main>
 
     <footer>
